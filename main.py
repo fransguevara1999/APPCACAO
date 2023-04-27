@@ -3,8 +3,10 @@ import numpy as np
 import tensorflow as tf
 from flask import Flask, request, jsonify
 from PIL import Image
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 model = None
 
 def load_model():
@@ -35,7 +37,7 @@ def predict_image(image):
 @app.route('/predict', methods=['POST'])
 def predict():
     # Obtener la imagen enviada en la petición POST
-    file = request.files['file']
+    file = request.files['image']
     # Cargar la imagen usando Pillow
     image = Image.open(file)
     # Obtener la predicción de la imagen
